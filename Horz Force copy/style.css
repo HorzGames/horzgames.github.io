@@ -1,0 +1,10 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #ffffff;
+}
+
+/* Make the canvas fill the layout and remove inline gaps */
+canvas {
+  display: block;
+}

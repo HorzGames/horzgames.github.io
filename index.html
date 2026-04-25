@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="page-title">Horz Games</title>
+    <link rel="icon" type="image/svg+xml" href="logos/HorzGames Logo.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <title id="page-title">Horz Games Launcher</title>
+  </head>
+  <body>
+    <div class="container">
+      <img id="horz-logo" src="logos/HorzGames Logo.svg" alt="Horz Games Logo" style="width:400px;height:auto;display:block;margin:-256px auto 16px;cursor:pointer;">
+      <div id="horz-easter-egg" style="display:none;text-align:center;"></div>
+       <h1 id="main-title">Horz Games</h1> 
+      <div class="buttons">
+        <button id="harvest" data-key="horz-harvest" data-path="horz harvest copy/index.html" data-desc="Collect apples, avoid logs, and evolve your horse! First Full game!">Horz Harvest</button>
+        <button id="dungeons" data-key="horz-dungeons" data-path="horz dungeons copy/index.html" data-desc="DISABLED" disabled style="opacity:0.5;cursor:not-allowed;">Horz Dungeons</button>
+        <button id="horzland" data-key="horzland" data-path="Horzland copy/game code/index.html" data-desc="A planetary adventure with exploration and surprises. WIP">Horzland</button>
+        <button id="starwars" data-key="star-wars-minibattle" data-path="star wars minibattle copy/index.html" data-desc="A fast-paced Star Wars themed minibattle game. First game ever with VScode">Star Wars Minibattle</button>
+        <button id="horseforce" data-key="horz-force" data-path="Horz Force copy/index.html" data-desc="Arcade shooter. Score as high as you can! Boss coming soon!">Horz Force</button>
+        <div id="game-tooltip" class="hidden"></div>
+      </div>
+
+      <!-- Browser fallback: iframe overlay used when running in a normal browser (no Electron preload) -->
+      <div id="game-overlay" class="hidden">
+        <div id="overlay-backdrop"></div>
+        <div id="overlay-frame-wrap">
+          <iframe id="game-frame" sandbox="allow-scripts allow-same-origin" src="about:blank"></iframe>
+          <button id="overlay-close" title="Close">✕</button>
+        </div>
+      </div>
+      <p class="hint">More Games Coming Soon! Special thanks to Lev Yavorsky for his contributions to the art of some games. Games by Marko Yavorsky</p>
+      <!--
+      <div id="civ-popup" class="civ-popup hidden">
+        <div class="civ-popup-content">
+          <img src="logos/Horz board game division logo .svg" alt="Board Game Division Logo" style="width:72px;height:auto;display:block;margin:0 auto 10px;">
+          <strong>New Board Game!</strong><br>
+          <span>Horz Civilization is now available.<br>Click below to download the PDF.</span><br>
+          <button id="civ-download-btn">Download Horz Civilization</button>
+          <button id="civ-close-btn" title="Close">✕</button>
+        </div>
+      </div>
+      -->
+      <!-- Horz Force P5 Legacy Edition popup -->
+      <div id="force-popup" class="civ-popup hidden">
+        <div class="civ-popup-content">
+          <img src="Horz Force copy/Images/Plane.png" alt="Horz Force Logo" style="width:72px;height:auto;display:block;margin:0 auto 10px;">
+          <strong>Horz Force — P5 Legacy Edition</strong><br>
+          <span>Download the legacy p5 sketch for Horz Force.</span><br>
+          <button id="force-download-btn">Download Horz Force sketch.js</button>
+          <button id="force-close-btn" title="Close">✕</button>
+        </div>
+      </div>
+    </div>
+    <script src="global-keys.js"></script>
+    <script src="renderer.js"></script>
+  </body>
+</html>
