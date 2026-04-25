@@ -1023,25 +1023,32 @@ function preload() {
   setupBuyAudio();
 
   // Load player plane images: primary and buddy variant
-  loadImage('Images/Plane.png',
-    img => { planeMainImg = img; console.log('Loaded image: Images/Plane.png'); },
-    err => {
-      console.warn('Images/Plane.png failed to load. Trying fallback Plane.png');
-      loadImage('Plane.png',
-        img2 => { planeMainImg = img2; console.log('Loaded image: Plane.png'); },
-        err2 => { console.warn('No plane image found.'); }
+  // Helper: try multiple candidate paths to tolerate case/space differences across hosts
+  function tryLoadImage(candidates, onSuccess, onFailure) {
+    if (!Array.isArray(candidates)) candidates = [candidates];
+    let tried = 0;
+    function attemptNext() {
+      if (tried >= candidates.length) {
+        if (typeof onFailure === 'function') onFailure();
+        return;
+      }
+      const p = candidates[tried++];
+      loadImage(p,
+        img => { if (typeof onSuccess === 'function') onSuccess(img, p); },
+        err => { attemptNext(); }
       );
     }
+    attemptNext();
+  }
+
+  tryLoadImage(['Images/Plane.png', 'Plane.png', 'images/Plane.png'],
+    (img, path) => { planeMainImg = img; console.log('Loaded image:', path); },
+    () => { console.warn('No planeMain image found in expected locations'); }
   );
-  loadImage('Images/plane-2.png',
-    img => { ship2Img = img; console.log('Loaded image: Images/plane-2.png'); },
-    err => {
-      console.warn('Images/plane-2.png failed to load. Trying fallback plane-2.png');
-      loadImage('plane-2.png',
-        img2 => { ship2Img = img2; console.log('Loaded image: plane-2.png'); },
-        err2 => { /* optional buddy image not found */ }
-      );
-    }
+
+  tryLoadImage(['Images/plane-2.png', 'plane-2.png', 'Images/Plane-2.png', 'Images/plane-2.PNG'],
+    (img, path) => { ship2Img = img; console.log('Loaded buddy image:', path); },
+    () => { console.warn('Buddy plane image not found; buddy will fallback to primary plane'); }
   );
   // Load the mini plane image for enemy `plane` type. Try common lowercase path then fallback.
   loadImage('Images/mini-plane.png',
@@ -1055,11 +1062,9 @@ function preload() {
     }
   );
   // Load flamethrower image (used by Flamethrower enemy)
-  loadImage('Images/flamethrower.png',
-    img => { flamethrowerImg = img; console.log('Loaded image: Images/flamethrower.png'); },
-    err => {
-      console.warn('Images/flamethrower.png failed to load. No flamethrower image available.');
-    }
+  tryLoadImage(['Images/flamethrower.png', 'Images/Flamethrower.png', 'flamethrower.png', 'Flamethrower.png', 'Images/flamethrower_LEV.png'],
+    (img, path) => { flamethrowerImg = img; console.log('Loaded flamethrower image:', path); },
+    () => { console.warn('Flamethrower image not found in expected locations'); }
   );
   // Load helicopter base and rotor images (if present). There are two assets in the Images folder.
   loadImage('Images/helicopter_base.png',
