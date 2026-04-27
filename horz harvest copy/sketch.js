@@ -1,3 +1,17 @@
+// --- Input Priority Utility ---
+// Returns true if a physical keyboard is likely present and should be prioritized over touch
+function isKeyboardPreferred() {
+  // If any key is pressed, or a real keyboard event is detected, prefer keyboard
+  // Otherwise, if only touch events are present, prefer touch
+  // This can be improved with heuristics, but this is a simple version
+  // On desktop, most browsers report 'any' keyboard
+  if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) return true;
+  if (navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer:fine)').matches) return false;
+  return true; // fallback: default to keyboard
+}
+
+// Usage: In your input handling, check isKeyboardPreferred() to decide which input to prioritize
+
 let staler; 
 let apples = [], logs = [];
 let score = 0, gameOver = false;

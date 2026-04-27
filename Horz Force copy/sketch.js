@@ -1,3 +1,12 @@
+// --- Input Priority Utility ---
+// Returns true if a physical keyboard is likely present and should be prioritized over touch
+function isKeyboardPreferred() {
+  if (window.matchMedia && window.matchMedia('(pointer:fine)').matches) return true;
+  if (navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer:fine)').matches) return false;
+  return true;
+}
+// Usage: In your input handling, check isKeyboardPreferred() to decide which input to prioritize
+
 // --- GLOBAL VARIABLES ---
 let FlamethrowerNoduleImg = null; // for new rotor weapons
 let FlameImg = null; // for flamethrower projectile
