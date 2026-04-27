@@ -3758,7 +3758,7 @@ function drawMainMenu() {
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(20);
-  text('ahkfr', btns.solo.x + btns.solo.w/2 + 20, btns.solo.y + btns.solo.h/2);
+  text('Solo', btns.solo.x + btns.solo.w/2 + 20, btns.solo.y + btns.solo.h/2);
 
   // BUDDY button (right) — show two plane icons and label
   fill(40, 40, 160);
